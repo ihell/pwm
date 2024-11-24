@@ -1,7 +1,9 @@
+
 #ifndef UTILS_H
 #define UTILS_H
 
-void launch_sxhkd(const char *config_path);
+#include <X11/Xlib.h>
 
-#endif
+void kill_window(Display *dpy, Window window); 
 
+#endif // UTILS_H

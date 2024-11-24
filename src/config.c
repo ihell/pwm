@@ -11,7 +11,8 @@ void launch() {
   }
 
   char sxhkdrc_path[512];
-  snprintf(sxhkdrc_path, sizeof(sxhkdrc_path), "%s/.config/sxhkd/sxhkdrc", home_dir);
+  snprintf(sxhkdrc_path, sizeof(sxhkdrc_path), "%s/.config/sxhkd/sxhkdrc",
+           home_dir);
 
   if (access(sxhkdrc_path, F_OK) == -1) {
     fprintf(stderr, "sxhkdrc file not found at: %s\n", sxhkdrc_path);
@@ -35,7 +36,13 @@ void launch() {
       exit(1);
     }
 
+    snprintf(command, sizeof(command), "nitrogen --fill &");
+    status = system(command);
+    if (status == -1) {
+      perror("Failed to launch nitrogen");
+      exit(1);
+    }
+
     exit(0);
   }
 }
-

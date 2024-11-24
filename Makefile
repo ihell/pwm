@@ -1,8 +1,8 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -lX11 -lXrandr -lXinerama -lXi -lXtst
+CFLAGS = -Wall -Wextra -g -lX11 -lXrandr -lXinerama -lXi -lXtst -lXrender
 SRC_DIR = ./src
 BUILD_DIR = ./build
-OUT = rafwm
+OUT = pwm
 
 SRC = $(SRC_DIR)/main.c $(SRC_DIR)/config.c $(SRC_DIR)/window_manager.c $(SRC_DIR)/utils.c
 OBJ = $(BUILD_DIR)/main.o $(BUILD_DIR)/config.o $(BUILD_DIR)/window_manager.o $(BUILD_DIR)/utils.o
@@ -25,9 +25,13 @@ $(BUILD_DIR)/utils.o: $(SRC_DIR)/utils.c
 
 clean:
 	rm -rf $(BUILD_DIR) $(OUT)
+
 test:
-	DISPLAY=:1 ./rafwm
+	DISPLAY=:1 ./${OUT}
+
 screen:
-	 Xephyr :1 -screen 1024x768 &
+	Xephyr :1 -screen 1024x768 &
+
 install:
-	sudo cp ./rafwm /usr/local/bin
+	sudo cp ./${OUT} /usr/local/bin
+
