@@ -8,9 +8,16 @@ void draw_borders(Window win, int focused) {
 }
 
 void focus_window(Window win) {
-    XSetInputFocus(dpy, win, RevertToPointerRoot, CurrentTime);
+    if (win == None) {
+        return;
+    }
+
     XRaiseWindow(dpy, win);
+    XSetInputFocus(dpy, win, RevertToPointerRoot, CurrentTime);
+    XFlush(dpy);
 }
+
+
 
 Window get_window_under_cursor() {
     Window ret_win = None, child_win;
