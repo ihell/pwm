@@ -1,4 +1,4 @@
-# Simple WM (Window Manager)
+# Simple WM (Window Manager).
 
 A minimal and lightweight custom window manager (WM) for X11. This window manager allows for basic window management functionalities such as creating windows, handling key events (like `Super+Q` to close a window), and drawing simple graphics.
 
