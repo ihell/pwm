@@ -5,8 +5,6 @@
 
 extern Display *dpy;
 extern Window root;
-extern Window win;
-extern GC gc;
 
-#endif // GLOBALS_H
+#endif 
 

@@ -1,27 +1,18 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -g -lX11 -lXrandr -lXinerama -lXi -lXtst -lXrender
+CFLAGS = -Wall -Wextra -g -lX11
 SRC_DIR = ./src
 BUILD_DIR = ./build
 OUT = pwm
 
-SRC = $(SRC_DIR)/main.c $(SRC_DIR)/config.c $(SRC_DIR)/window_manager.c $(SRC_DIR)/utils.c
-OBJ = $(BUILD_DIR)/main.o $(BUILD_DIR)/config.o $(BUILD_DIR)/window_manager.o $(BUILD_DIR)/utils.o
+SRC = $(SRC_DIR)/main.c $(SRC_DIR)/config.c $(SRC_DIR)/utils.c $(SRC_DIR)/window_manager.c
+OBJ = $(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 
 $(OUT): $(OBJ)
 	$(CC) -o $(OUT) $(OBJ) $(CFLAGS)
 
-$(BUILD_DIR)/main.o: $(SRC_DIR)/main.c
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(BUILD_DIR)
-	$(CC) -c $(SRC_DIR)/main.c -o $(BUILD_DIR)/main.o $(CFLAGS)
-
-$(BUILD_DIR)/config.o: $(SRC_DIR)/config.c
-	$(CC) -c $(SRC_DIR)/config.c -o $(BUILD_DIR)/config.o $(CFLAGS)
-
-$(BUILD_DIR)/window_manager.o: $(SRC_DIR)/window_manager.c
-	$(CC) -c $(SRC_DIR)/window_manager.c -o $(BUILD_DIR)/window_manager.o $(CFLAGS)
-
-$(BUILD_DIR)/utils.o: $(SRC_DIR)/utils.c
-	$(CC) -c $(SRC_DIR)/utils.c -o $(BUILD_DIR)/utils.o $(CFLAGS)
+	$(CC) -c $< -o $@ $(CFLAGS)
 
 clean:
 	rm -rf $(BUILD_DIR) $(OUT)
@@ -33,5 +24,4 @@ screen:
 	Xephyr :1 -screen 1024x768 &
 
 install:
-	sudo cp ./${OUT} /usr/local/bin
-
+	sudo cp pwm /usr/local/bin

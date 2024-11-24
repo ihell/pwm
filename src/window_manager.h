@@ -1,9 +1,12 @@
 #ifndef WINDOW_MANAGER_H
 #define WINDOW_MANAGER_H
 
+#include "utils.h"
 #include <X11/Xlib.h>
 
-void handle_events(); // Declare the handle_events function
+#define MOD1_MASK Mod1Mask   // Alt key
+#define MOD4_MASK Mod4Mask   // Super (Windows) key
+
+void handle_key_press(XKeyEvent *ev);
 
 #endif
-
